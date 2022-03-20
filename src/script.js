@@ -133,9 +133,9 @@ function swap(i, j, arr) {
     arr[i].position.z = arr[j].position.z;
     arr[j].position.z = temp2;
 
-    let temp3 = arr[i].name;
-    arr[i].name = arr[j].name;
-    arr[j].name = temp3;
+    // let temp3 = arr[i].name;
+    // arr[i].name = arr[j].name;
+    // arr[j].name = temp3;
 
 }
 
@@ -211,14 +211,14 @@ class PickHelper {
         this.raycaster = new THREE.Raycaster();
         this.pickedObject = null;
         this.pickedObjectSavedColor = 0;
-        this.blank = null;
+        // this.blank = null;
     }
     pick(normalizedPosition, scene, camera) {
         // restore the color if there is a picked object
           if (this.pickedObject) {
             // this.pickedObject.material.emissive.setHex(this.pickedObjectSavedColor);
             this.pickedObject = undefined;
-            this.blank = undefined;
+            // this.blank = undefined;
           }
 
 
@@ -234,16 +234,17 @@ class PickHelper {
             // this.pickedObjectSavedColor = this.pickedObject.material.emissive.getHex();
             // // set its emissive color to flashing red/yellow
             // this.pickedObject.material.emissive.setHex((time * 8) % 2 > 1 ? 0xFFFF00 : 0xFF0000);
-
+            
+            let blank
             tiles.forEach(tile => {
                 if (tile.name == "15") {
-                    this.blank = tile
+                    blank = tile
                 }
             });
-            swap2cube(this.pickedObject, this.blank, tiles)
+            swap2cube(this.pickedObject, blank)
 
 
-            function swap2cube(pickedobject, blank, array) {
+            function swap2cube(pickedobject, blank) {
                 if (isNeighbor(pickedobject, blank)) {
                     let temp1 = pickedobject.position.x
                     pickedobject.position.x = blank.position.x
@@ -253,18 +254,22 @@ class PickHelper {
                     pickedobject.position.z = blank.position.z
                     blank.position.z = temp2
 
-                    for (let i = 0; i < array.length; i++) {
-                        if (array[i].name == pickedobject.name) {
+                    // let temp3 = pickedobject.name
+                    // pickedobject.name = blank.name
+                    // blank.name = temp3
 
-                            for (let j = 0; j < array.length; j++) {
-                                if (array[j].name == blank.name) {
-                                    let temp = array[i]
-                                    array[i] = array[j]
-                                    array[j] = temp
-                                }
-                            }
-                        }
-                    }
+                    // for (let i = 0; i < array.length; i++) {
+                    //     if (array[i].name == pickedobject.name) {
+
+                    //         for (let j = 0; j < array.length; j++) {
+                    //             if (array[j].name == blank.name) {
+                    //                 let temp = array[i]
+                    //                 array[i] = array[j]
+                    //                 array[j] = temp
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                 }
 
@@ -282,6 +287,7 @@ class PickHelper {
                 return false;
             }
             console.log(this.pickedObject.position.x, this.pickedObject.position.z)
+            console.log(this.pickedObject)
             // console.log(tiles)
 
         }
