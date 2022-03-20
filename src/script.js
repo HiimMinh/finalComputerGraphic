@@ -116,119 +116,15 @@ for (let i = 0; i < cols; i++) {
     }
 }
 
-// tiles.pop();
 for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].name == '15') {
         tiles[i].visible = false
     }
 }
-// tiles..visible = false
-// board.pop();
-// board.push("-1")
 
-
-// const cube = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 1, 1),
-//     // new THREE.MeshBasicMaterial({ color: 0xff0000 })
-//     new THREE.MeshBasicMaterial({ map: loader.load('1.jpg') }),
-// )
-// cube.name = '1'
-// scene.add(cube)
-
-// const cube2 = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 2, 1),
-//     new THREE.MeshBasicMaterial({ color: 0x344456 })
-// )
-// cube2.name = '2'
-// cube2.position.x = 0
-// cube2.position.z = 5
-// scene.add(cube2)
-
-
-// const cube3 = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 3, 1),
-//     new THREE.MeshBasicMaterial({ color: 0x454456 })
-// )
-// cube3.name = '3'
-// cube3.position.x = 0
-// cube3.position.z = 10
-// scene.add(cube3)
-
-
-// const cube4 = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 4, 1),
-//     new THREE.MeshBasicMaterial({ color: 0x774456 })
-// )
-// cube4.name = '4'
-// cube4.position.x = 0
-// cube4.position.z = 15
-// scene.add(cube4)
-
-
-
-// let a = cube.position.x
-// console.log(a)
-// console.log(cube)
-
-// let cubes = [cube , cube2, cube3, cube4]
-
-
-// function swapx(){
-//     // let temp1 = cube.position.x;
-//     // let temp2 = cube2.position.x;
-//     // return [temp1, temp2] = [temp2, temp1];
-//     let temp = cube.position.x;
-//     cube.position.x = cube2.position.x;
-//     cube2.position.x = temp;
-// }
-
-// function swapz(){
-//     // let temp3 = cube.position.z;
-//     // let temp4 = cube2.position.z;
-//     // return [temp3, temp4] = [temp3, temp4]
-
-//     let temp = cube.position.z;
-//     cube.position.z = cube2.position.z;
-//     cube2.position.z = temp;
-
-// }
-
-// swapx()
-// swapz()
-
-
-
-// function swapcubeprop(cube, cube2) {
-//     let temp1 = cube.position.x;
-//     cube.position.x = cube2.position.x;
-//     cube2.position.x = temp1;
-
-//     let temp2 = cube.position.z;
-//     cube.position.z = cube2.position.z;
-//     cube2.position.z = temp2;
-
-//     let temp3 = cube.name;
-//     cube.name = cube2.name;
-//     cube2.name = temp3;
-// }
 
 function swap(i, j, arr) {
-    // for(let k = 0; k < arr.length; k++){
-    //     if(arr[k].name == j.toString())
-    //     {
-    //         let temp1 = arr[i].position.x;
-    //         arr[i].position.x = arr[j].position.x;
-    //         arr[j].position.x = temp1;
 
-    //         let temp2 = arr[i].position.z;
-    //         arr[i].position.z = arr[j].position.z;
-    //         arr[j].position.z = temp2;
-
-    //         let temp3 = arr[i].name;
-    //         arr[i].name = arr[j].name;
-    //         arr[j].name = temp3;
-    //     }
-    // }
     let temp1 = arr[i].position.x;
     arr[i].position.x = arr[j].position.x;
     arr[j].position.x = temp1;
@@ -260,74 +156,27 @@ function randomMove(array) {
     move(r1, r2, array)
 
 }
-// randomMove(tiles)
 
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        // const temp = array[i];
-        // array[i] = array[j];
-        // array[j] = temp;
-        // swapcubeprop(array[i], array[j])
+     
         swap(i, j, array)
-        // move(i, j, array)
+       
     }
 }
 
-// function shuffleArray(arr){
-//     for(let i = 0; i < 5; i++){
-//         randomMove(arr);
-//     }
-// }
 shuffleArray(tiles)
-// randomMove(tiles)
 
 
-/**
- * Function
- */
-// function move(i, j, arr) {
-//     let blank = findBlank();
-//     console.log(blank)
-//     // let blankCol = blank % cols;
-//     // let blankRow = Math.floor(blank / rows);
-//     let blankCol = arr[blank].position.x
-//     let blankRow = arr[blank].position.z
-
-//     let chosenPos = i + j* cols
-//     if (isNeighbor(i, j, blankCol, blankRow)) {
-//         swap(blank, chosenPos, arr);
-//     }
-//     // swap(blank, (i + j * cols), arr);
-//     // swap(blank, chosenPos, arr);
-// }
-
-// function isNeighbor(i, j, x, y) {
-//     if (i !== x && j !== y) {
-//         return false;
-//     }
-//     if (Math.abs(i - x) == 5 || Math.abs(j - y) == 5) {
-//         return true;
-//     }
-
-//     return false;
-// }
 
 
-function findBlank() {
-    for (let i = 0; i < tiles.length; i++) {
-        if (tiles[i].name == "15") {
-            return i;
-        }
-    }
-}
-console.log(findBlank())
 
 console.log(tiles)
-console.log(board)
+// console.log(board)
 
-// console.log(cube2)
+
 tiles.forEach((tile) => {
     scene.add(tile);
 });
@@ -348,7 +197,14 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 const clock = new THREE.Clock()
 let lastElapsedTime = 0
 
-
+// function findBlank(array) {
+//     for (let i = 0; i < array.length; i++) {
+//         if (array[i].name == "15") {
+//             return array[i];
+//         }
+//     }
+// }
+// console.log(findBlank(tiles))
 
 class PickHelper {
     constructor() {
@@ -362,6 +218,7 @@ class PickHelper {
           if (this.pickedObject) {
             // this.pickedObject.material.emissive.setHex(this.pickedObjectSavedColor);
             this.pickedObject = undefined;
+            this.blank = undefined;
           }
 
 
@@ -378,13 +235,13 @@ class PickHelper {
             // // set its emissive color to flashing red/yellow
             // this.pickedObject.material.emissive.setHex((time * 8) % 2 > 1 ? 0xFFFF00 : 0xFF0000);
 
-            tiles.forEach(cube => {
-                if (cube.name == "15") {
-                    this.blank = cube
+            tiles.forEach(tile => {
+                if (tile.name == "15") {
+                    this.blank = tile
                 }
             });
-
             swap2cube(this.pickedObject, this.blank, tiles)
+
 
             function swap2cube(pickedobject, blank, array) {
                 if (isNeighbor(pickedobject, blank)) {
@@ -409,22 +266,10 @@ class PickHelper {
                         }
                     }
 
-
-                    // cubes.forEach(cube1 => {
-                    //   if(cube1.id == pickedobject.id){
-
-                    //     cubes.forEach(cube2 => {
-                    //       if(cube2.id == blank.id){
-                    //         let temp = cube1
-                    //         cube1 = cube2
-                    //         cube2 = temp
-                    //       }
-                    //     });
-                    //   }
-                    // });
                 }
 
             }
+
 
             function isNeighbor(pickedobject, blank) {
                 if (pickedobject.position.x !== blank.position.x && pickedobject.position.z !== blank.position.z) {
@@ -437,7 +282,7 @@ class PickHelper {
                 return false;
             }
             console.log(this.pickedObject.position.x, this.pickedObject.position.z)
-            console.log(tiles)
+            // console.log(tiles)
 
         }
     }
