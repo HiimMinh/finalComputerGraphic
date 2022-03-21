@@ -142,9 +142,9 @@ console.log(tiles)
 
 function checkWonCondition(){
     let won = true
-    let i
+    let i = 0
     for(i; i < tiles.length; i++){
-        for(let i = 0; i < boards.length; i++){
+        for(i; i < boards.length; i++){
             if(tiles[i].id == boards[i][0] && tiles[i].position.x == boards[i][1] && tiles[i].position.z == boards[i][2]){
                 won = true
             }
@@ -355,9 +355,9 @@ const tick = () => {
 
     pickHelper.pick(pickPosition, scene, camera);
 
-    // if(checkWonCondition()){
-    //     console.log("Solved")
-    // }
+    if(checkWonCondition()){
+        console.log("Solved")
+    }
 
     // Render
     renderer.render(scene, camera)
