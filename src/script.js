@@ -88,14 +88,21 @@ const loader = new THREE.TextureLoader();
  * Cube
  */
 
-// let geoCanvas = new THREE.BoxGeometry(wCanvas, 1 ,hCanvas)
-// let matCanvas = new THREE.Material({map: loader.load('canvas.jpg')})
-// let originalCanvas = new THREE.Mesh(geoCanvas, matCanvas)
+let geoCanvas = new THREE.BoxGeometry(wCanvas/2, 1 ,hCanvas/2)
+let matCanvas = [
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ map: loader.load('canvas.jpg') }),
+    new THREE.MeshBasicMaterial({ map: loader.load('rotation/canvas.jpg') }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+];
+let originalCanvas = new THREE.Mesh(geoCanvas, matCanvas)
 
-// originalCanvas.position.x = 15
-// originalCanvas.position.z = 15
+originalCanvas.position.x = 30
+originalCanvas.position.z = 0
 
-// scene.add(originalCanvas)
+scene.add(originalCanvas)
 
 
 for (let i = 0; i < cols; i++) {
