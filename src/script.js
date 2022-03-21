@@ -68,7 +68,7 @@ controls.enableDamping = true
  */
 const mouse = new THREE.Vector2(1, 1);
 let tiles = []
-let board = []
+let boards = []
 
 let cols = 4
 let rows = 4
@@ -94,7 +94,7 @@ for (let i = 0; i < cols; i++) {
 
         let index = i + j * cols;
         let name = index.toString()
-        board.push(name)
+        // boards.push(name)
 
         let geometry = new THREE.BoxGeometry(xTile - 0.5, yTile, zTile - 0.5)
 
@@ -116,6 +116,37 @@ for (let i = 0; i < cols; i++) {
     }
 }
 
+function setWonCondition(){
+    tiles.forEach(tile => {
+        let board = []
+        board.push(tile.id, tile.position.x, tile.position.z)
+        boards.push(board)
+    });
+}
+
+setWonCondition()
+console.log(boards)
+
+console.log(tiles)
+
+function checkWonCondition(){
+    let won = true
+    for(let i = 0; i < tiles.length; i++){
+        for(let j = 0; j < boards.length; j++){
+            if(tiles[i].id == boards[j][0] && tiles[i].position.x == boards[j][1] && tiles[i].position.z == boards[j][2]){
+                won = true
+            }
+            else{
+                won = false
+            }
+        }
+    }
+    return won
+}
+// tiles.sort(function(a,b){
+//     return parseInt(a.name) -parseInt(b.name)
+// })
+
 for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].name == '15') {
         tiles[i].visible = false
@@ -136,6 +167,7 @@ function swap(i, j, arr) {
     // let temp3 = arr[i].name;
     // arr[i].name = arr[j].name;
     // arr[j].name = temp3;
+    // arr.splice(i, j)
 
 }
 
@@ -241,10 +273,10 @@ class PickHelper {
                     blank = tile
                 }
             });
-            swap2cube(this.pickedObject, blank)
+            swap2cube(this.pickedObject, blank, tiles)
 
 
-            function swap2cube(pickedobject, blank) {
+            function swap2cube(pickedobject, blank, array) {
                 if (isNeighbor(pickedobject, blank)) {
                     let temp1 = pickedobject.position.x
                     pickedobject.position.x = blank.position.x
@@ -258,18 +290,18 @@ class PickHelper {
                     // pickedobject.name = blank.name
                     // blank.name = temp3
 
-                    // for (let i = 0; i < array.length; i++) {
-                    //     if (array[i].name == pickedobject.name) {
+                    for (let i = 0; i < array.length; i++) {
+                        if (array[i].name == pickedobject.name) {
 
-                    //         for (let j = 0; j < array.length; j++) {
-                    //             if (array[j].name == blank.name) {
-                    //                 let temp = array[i]
-                    //                 array[i] = array[j]
-                    //                 array[j] = temp
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                            for (let j = 0; j < array.length; j++) {
+                                if (array[j].name == blank.name) {
+                                    let temp = array[i]
+                                    array[i] = array[j]
+                                    array[j] = temp
+                                }
+                            }
+                        }
+                    }
 
                 }
 
@@ -288,7 +320,7 @@ class PickHelper {
             }
             console.log(this.pickedObject.position.x, this.pickedObject.position.z)
             console.log(this.pickedObject)
-            // console.log(tiles)
+            console.log(tiles)
 
         }
     }
@@ -309,6 +341,9 @@ const tick = () => {
     controls.update()
 
     pickHelper.pick(pickPosition, scene, camera);
+    if(checkWonCondition()){
+        console.log("Solved")
+    }
 
     // Render
     renderer.render(scene, camera)
