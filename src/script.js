@@ -87,6 +87,17 @@ const loader = new THREE.TextureLoader();
 /**
  * Cube
  */
+
+// let geoCanvas = new THREE.BoxGeometry(wCanvas, 1 ,hCanvas)
+// let matCanvas = new THREE.Material({map: loader.load('canvas.jpg')})
+// let originalCanvas = new THREE.Mesh(geoCanvas, matCanvas)
+
+// originalCanvas.position.x = 15
+// originalCanvas.position.z = 15
+
+// scene.add(originalCanvas)
+
+
 for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
         let x = i * xTile - 5;
@@ -131,13 +142,15 @@ console.log(tiles)
 
 function checkWonCondition(){
     let won = true
-    for(let i = 0; i < tiles.length; i++){
-        for(let j = 0; j < boards.length; j++){
-            if(tiles[i].id == boards[j][0] && tiles[i].position.x == boards[j][1] && tiles[i].position.z == boards[j][2]){
+    let i
+    for(i; i < tiles.length; i++){
+        for(let i = 0; i < boards.length; i++){
+            if(tiles[i].id == boards[i][0] && tiles[i].position.x == boards[i][1] && tiles[i].position.z == boards[i][2]){
                 won = true
             }
             else{
                 won = false
+                break
             }
         }
     }
@@ -341,9 +354,10 @@ const tick = () => {
     controls.update()
 
     pickHelper.pick(pickPosition, scene, camera);
-    if(checkWonCondition()){
-        console.log("Solved")
-    }
+
+    // if(checkWonCondition()){
+    //     console.log("Solved")
+    // }
 
     // Render
     renderer.render(scene, camera)
