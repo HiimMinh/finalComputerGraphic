@@ -141,10 +141,8 @@ console.log(boards)
 console.log(tiles)
 
 function checkWonCondition(){
-    let won = true
-    let i = 0
-    for(i; i < tiles.length; i++){
-        for(i; i < boards.length; i++){
+    let won 
+    for(let i = 0; i < tiles.length; i++){
             if(tiles[i].id == boards[i][0] && tiles[i].position.x == boards[i][1] && tiles[i].position.z == boards[i][2]){
                 won = true
             }
@@ -153,7 +151,6 @@ function checkWonCondition(){
                 break
             }
         }
-    }
     return won
 }
 // tiles.sort(function(a,b){
@@ -202,6 +199,19 @@ function randomMove(array) {
 
 }
 
+let nofShuffle = 1
+function simpleShuffleArray(array){
+    for(let i = 0; i < nofShuffle; i++)
+    {
+       let s1 = Math.floor(Math.random()* array.length)
+       let s2 = Math.floor(Math.random()* array.length)
+
+        if(s1 != s2){
+            swap(s1, s2, array)
+        }
+    }
+}
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -212,7 +222,9 @@ function shuffleArray(array) {
     }
 }
 
-shuffleArray(tiles)
+// shuffleArray(tiles)
+
+simpleShuffleArray(tiles)
 
 
 
@@ -331,9 +343,9 @@ class PickHelper {
 
                 return false;
             }
-            console.log(this.pickedObject.position.x, this.pickedObject.position.z)
-            console.log(this.pickedObject)
-            console.log(tiles)
+            // console.log(this.pickedObject.position.x, this.pickedObject.position.z)
+            // console.log(this.pickedObject)
+            // console.log(tiles)
 
         }
     }
@@ -354,6 +366,8 @@ const tick = () => {
     controls.update()
 
     pickHelper.pick(pickPosition, scene, camera);
+
+    // console.log(checkWonCondition())
 
     if(checkWonCondition()){
         console.log("Solved")
